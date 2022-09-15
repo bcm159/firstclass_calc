@@ -35,7 +35,8 @@ function App() {
       var month = ("0" + (1 + date.getMonth())).slice(-2);
       var day = ("0" + date.getDate()).slice(-2);
       var result_date = year + month + day;
-      var url ='korea/site/program/financial/exchangeJSON?authkey=MXuMd56F9xZeEkKrd13R9QUOKSsEYLpa&searchdate='+result_date+'&data=AP01';
+      // var url ='korea/site/program/financial/exchangeJSON?authkey=MXuMd56F9xZeEkKrd13R9QUOKSsEYLpa&searchdate='+result_date+'&data=AP01';
+      var url ='https://www.koreaexim.go.kr/korea/site/program/financial/exchangeJSON?authkey=MXuMd56F9xZeEkKrd13R9QUOKSsEYLpa&searchdate='+result_date+'&data=AP01';
       return url;
       
     }
