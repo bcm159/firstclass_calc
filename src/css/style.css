@@ -1,0 +1,48 @@
+.vol_indiv{
+    display:flex;
+    justify-content: center;
+    text-align: center;
+    border-top: 1px solid #ccc;
+    padding-top: 2rem;
+}
+
+.vol_indiv>div{
+    float:left;
+}
+
+.germany_vol{
+    padding-right: 1rem;
+    border-right: 1px solid #ccc;
+}
+.america_vol{
+    margin-left: 1rem;
+}
+
+.germany_len_vol{
+    padding-right: 1rem;
+    border-right: 1px solid #ccc;
+}
+
+.america_len_vol{
+    margin-left: 1rem;
+}
+
+.vol_input{
+    width: 50px;
+}
+
+.vol_unit{
+    width: 10px;
+    margin-right: 1rem;
+}
+.len_unit{
+    width: 20px;
+}
+.length_sp{
+    display:block;
+}
+
+.length_input{
+    width: 40px;
+}
+
