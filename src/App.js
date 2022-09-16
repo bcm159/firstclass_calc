@@ -4,8 +4,11 @@ import Eu_Delivery from './delivery/Eu_delivery';
 import Usa_delivery from './delivery/Usa_delivery';
 import './App.css';
 import { useState, useEffect } from 'react';
+import axios from "axios";
 
 function App() {
+
+    const[getAPI,setGetAPI] = useState('');
     const [todaydate,setTodayDate] = useState('');
     const [geturl,setGeturl] = useState('');
     const [exchangeList,setExchangeList] = useState([]);
@@ -24,6 +27,14 @@ function App() {
     //배송비
     const [eu_delivery_price,setEu_delivery_price] = useState(0);
     const [us_delivery_price,setUs_delivery_price] = useState(0);
+
+    const callApi = async()=>{
+      axios.get("/api").then((res)=>{setGetAPI(res.data)});
+    };
+
+    useEffect(()=>{
+      callApi();
+    }, []);
 
     const onChangeEuWonCost = (e) =>{
       let won_euPrice = (Number(e.target.value) * euPrice).toFixed(2);
@@ -125,10 +136,11 @@ function App() {
     
   return (
     <div className="App">
-      <div className='exchangeInfo'>
-        
-        <span className='eu_result_exchange'>{exchangeList[0]&&exchangeList[0].price}달러</span>
-        <span className='us_result_exchange'>{exchangeList[1]&&exchangeList[1].price}유로</span>
+      <div className='exchangeInfo'> 
+        {/* <span className='eu_result_exchange'>{exchangeList[0]&&exchangeList[0].price}달러</span>
+        <span className='us_result_exchange'>{exchangeList[1]&&exchangeList[1].price}유로</span> */}
+        <span className='eu_result_exchange'>{getAPI[0]&&getAPI[0].rate}달러</span>
+        <span className='us_result_exchange'>{getAPI[2]&&getAPI[2].rate}유로</span>
         
       </div>
       <div className='indiv'>
