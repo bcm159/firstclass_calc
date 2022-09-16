@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Eu_delivery = ({result_eu_volume,get_deliv_price}) => {
+const Eu_delivery = ({result_eu_volume,eu_get_deliv_price}) => {
     let find_volume = result_eu_volume;
     let before_num = 0
-    let after_num = 0
+    let eu_after_num = 0
     const up_halfNum = (vol) =>{
         before_num = vol;
-        after_num = (Math.ceil(before_num * 2))/2;
+        eu_after_num = (Math.ceil(before_num * 2))/2;
     }
     up_halfNum(find_volume);
     const volume_price = [
@@ -132,15 +132,16 @@ const Eu_delivery = ({result_eu_volume,get_deliv_price}) => {
 
     let result_Euvol_price = 0;
     for(let i of volume_price){
-        if(i['volume'] === after_num){
+        if(i['volume'] === eu_after_num){
             result_Euvol_price = i['price'];
         }
     }
+    eu_get_deliv_price(result_Euvol_price);
     
     return (
         <div>
-            <p>{after_num}</p>
-            <h1>{result_Euvol_price}</h1>
+            <p>{eu_after_num}kg</p>
+            <h1>{result_Euvol_price}유로</h1>
         </div>
     );
 };

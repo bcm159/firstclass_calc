@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './../css/style.css';
 
-const Volume = ({getWeight}) => {
+const Volume = ({eugetWeight,usgetWeight}) => {
     const [euVolume,setEuVolume] = useState(0);
     const [usVolume,setUsVolume] = useState(0);
     const [changeEuUnit,setChangeEuUnit] = useState('');
@@ -56,7 +56,8 @@ const Volume = ({getWeight}) => {
         }
     }
 
-    getWeight(euVolume);
+    eugetWeight(euVolume);
+    usgetWeight(usVolume);
     return (
         <div>
             <p>온스 : o, 파운드 : p, 그램 : g</p>

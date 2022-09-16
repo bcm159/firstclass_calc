@@ -1,6 +1,7 @@
 import Volume from './components/Volume';
 import Len_volume from './components/Length_Volume';
 import Eu_Delivery from './delivery/Eu_delivery';
+import Usa_delivery from './delivery/Usa_delivery';
 import './App.css';
 import { useState, useEffect } from 'react';
 
@@ -17,7 +18,12 @@ function App() {
     const [comp_eu_w,setComp_eu_w] = useState(0);
     const [comp_eu_v,setComp_eu_v] = useState(0);
 
+    const [comp_us_w,setComp_us_w] = useState(0);
+    const [comp_us_v,setComp_us_v] = useState(0);
+
+    //배송비
     const [eu_delivery_price,setEu_delivery_price] = useState(0);
+    const [us_delivery_price,setUs_delivery_price] = useState(0);
 
     const onChangeEuWonCost = (e) =>{
       let won_euPrice = (Number(e.target.value) * euPrice).toFixed(2);
@@ -69,28 +75,52 @@ function App() {
     },[]);
 
 
-    const getWeight = (w) =>{
+    const eugetWeight = (w) =>{
       setComp_eu_w(w);
     }
-
-    const getVolume = (v) =>{
-      setComp_eu_v(v);
+    const usgetWeight = (w) =>{
+      setComp_us_w(w);
     }
 
-    let last_volume = 0
+    const eugetVolume = (v) =>{
+      setComp_eu_v(v);
+    }
+    const usgetVolume = (v) =>{
+      setComp_us_v(v);
+    }
+
+    //EU 무게 비교
+    let eu_last_volume = 0
     const compEu = (comp_eu_w,comp_eu_v) =>{
       let num_a = Number(comp_eu_w);
       let num_b = Number(comp_eu_v);
       if(num_a > num_b){
-        last_volume = num_a;
+        eu_last_volume = num_a;
       }else if (num_a <= num_b){
-        last_volume = num_b;
+        eu_last_volume = num_b;
       }
     }
     compEu(comp_eu_w,comp_eu_v);
+
+    //usa 무게 비교
+    let us_last_volume = 0
+    const compUs = (comp_us_w,comp_us_v) =>{
+      let num_a = Number(comp_us_w);
+      let num_b = Number(comp_us_v);
+      if(num_a > num_b){
+        us_last_volume = num_a;
+      }else if (num_a <= num_b){
+        us_last_volume = num_b;
+      }
+    }
+    compUs(comp_us_w,comp_us_v);
     
-    const get_deliv_price = (price) =>{
+    //EU 가격 얻어오기
+    const eu_get_deliv_price = (price) =>{
       setEu_delivery_price(price);
+    }
+    const us_get_deliv_price = (price) =>{
+      setUs_delivery_price(price);
     }
     
   return (
@@ -121,10 +151,11 @@ function App() {
               <p>{uswonCost}</p>
           </div>
       </div>
-      <Volume getWeight = {getWeight}/>
-      <Len_volume getVolume = {getVolume}/>
-      <Eu_Delivery result_eu_volume={last_volume} get_deliv_price={get_deliv_price} />
-      <p>최종 무게 : {last_volume}</p>
+      <Volume eugetWeight = {eugetWeight} usgetWeight={usgetWeight}/>
+      <Len_volume eugetVolume = {eugetVolume} usgetVolume={usgetVolume}/>
+      <Eu_Delivery result_eu_volume={eu_last_volume} eu_get_deliv_price={eu_get_deliv_price} />
+      <Usa_delivery result_us_volume={us_last_volume} us_get_deliv_price={us_get_deliv_price}/>
+      <p>최종 무게 : {eu_last_volume}</p>
     </div>
   );
 }

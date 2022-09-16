@@ -1,6 +1,15 @@
 import React from 'react';
 
-const Usa_delivery = () => {
+const Usa_delivery = ({result_us_volume,us_get_deliv_price}) => {
+    let find_volume = result_us_volume;
+    let before_num = 0
+    let us_after_num = 0
+    const up_halfNum = (vol) =>{
+        before_num = vol;
+        us_after_num = Math.ceil(before_num);
+        
+    }
+    up_halfNum(find_volume);
     const usa_delivery = [
         {"pound":1,"price":8.5,"price2":8.41,"price3":8.33,"price4":8.24,"price5":8.16,"price6":8.07,"price7":6.00},
         {"pound":2,"price":10.2,"price2":10.1,"price3":10,"price4":9.89,"price5":9.79,"price6":9.69,"price7":7.50},
@@ -153,9 +162,20 @@ const Usa_delivery = () => {
         {"pound":149,"price":260.1,"price2":257.5,"price3":254.9,"price4":252.3,"price5":249.7,"price6":247.1,"price7":228.00},
         {"pound":150,"price":261.8,"price2":259.18,"price3":256.56,"price4":253.95,"price5":251.33,"price6":248.71,"price7":229.50}
         ]
+
+    let result_Usvol_price = 0;
+    for(let i of usa_delivery){
+        
+        if(i['pound'] === us_after_num){
+            result_Usvol_price = i['price'];
+        }
+    }
+    us_get_deliv_price(result_Usvol_price);
+        
     return (
         <div>
-            
+            <p>{us_after_num}파운드</p>
+            <h1>{result_Usvol_price}달러</h1>
         </div>
     );
 };
