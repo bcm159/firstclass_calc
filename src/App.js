@@ -12,8 +12,8 @@ function App() {
     const [todaydate,setTodayDate] = useState('');
     const [geturl,setGeturl] = useState('');
     const [exchangeList,setExchangeList] = useState([]);
-    const [euPrice,setEuPrice] = useState('');
-    const [usPrice,setUsPrice] = useState('');
+    const [euPrice,setEuPrice] = useState(1390);
+    const [usPrice,setUsPrice] = useState(1390);
 
     const [euwonCost,seteuWonCost] = useState(0);
     const [uswonCost,setusWonCost] = useState(0);
@@ -31,18 +31,20 @@ function App() {
     const callApi = async()=>{
       axios.get("/api").then((res)=>{setGetAPI(res.data)});
     };
-
     useEffect(()=>{
       callApi();
     }, []);
 
+    //callapi 상태 확인
+    let result_api = getAPI;
+
     const onChangeEuWonCost = (e) =>{
-      let won_euPrice = (Number(e.target.value) * euPrice).toFixed(2);
+      let won_euPrice = ((Number(e.target.value) * euPrice).toFixed(2)).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       seteuWonCost(won_euPrice);
     }
 
     const onChangeUsWonCost = (e) => {
-      let won_usPrice = (Number(e.target.value) * usPrice).toFixed(2);
+      let won_usPrice = ((Number(e.target.value) * usPrice).toFixed(2)).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       setusWonCost(won_usPrice);
     }
 
@@ -134,14 +136,15 @@ function App() {
       setUs_delivery_price(price);
     }
     
+
   return (
     <div className="App">
       <div className='exchangeInfo'> 
         {/* <span className='eu_result_exchange'>{exchangeList[0]&&exchangeList[0].price}달러</span>
         <span className='us_result_exchange'>{exchangeList[1]&&exchangeList[1].price}유로</span> */}
-        <span className='eu_result_exchange'>{getAPI[0]&&getAPI[0].rate}달러</span>
-        <span className='us_result_exchange'>{getAPI[2]&&getAPI[2].rate}유로</span>
-        
+        {getAPI ==='' ? <input /> : <span className='eu_result_exchange'>{getAPI[0]&&getAPI[0].rate}달러</span>}
+        {getAPI ==='' ? <input /> : <span className='us_result_exchange'>{getAPI[2]&&getAPI[2].rate}유로</span>}
+      
       </div>
       <div className='indiv'>
           <div className='germany'>
