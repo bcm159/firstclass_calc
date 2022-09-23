@@ -167,10 +167,10 @@ function App() {
           </div>
       </div>
       <Volume eugetWeight = {eugetWeight} usgetWeight={usgetWeight}/>
-      <Len_volume eugetVolume = {eugetVolume} usgetVolume={usgetVolume}/>
+      <Len_volume eugetVolume = {eugetVolume} usgetVolume={usgetVolume} us_getweigt={comp_us_w}/>
       <Eu_Delivery result_eu_volume={eu_last_volume} eu_get_deliv_price={eu_get_deliv_price} />
       <Usa_delivery result_us_volume={us_last_volume} us_get_deliv_price={us_get_deliv_price}/>
-      <p>최종 무게 : {eu_last_volume}</p>
+     
     </div>
   );
 }
