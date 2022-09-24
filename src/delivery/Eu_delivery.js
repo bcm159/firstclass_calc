@@ -10,6 +10,8 @@ const Eu_delivery = ({result_eu_volume,eu_get_deliv_price}) => {
     }
     up_halfNum(find_volume);
     const volume_price = [
+        
+        {"volume": 0.5, "price": 14860},
         {"volume": 1, "price": 14860},
         {"volume": 1.5, "price": 17720},
         {"volume": 2, "price": 20580},
