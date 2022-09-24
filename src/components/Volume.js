@@ -4,6 +4,7 @@ import './../css/style.css';
 const Volume = ({eugetWeight,usgetWeight}) => {
     const [euVolume,setEuVolume] = useState(0);
     const [usVolume,setUsVolume] = useState(0);
+    const [usPoundVolume,setUsPoundVolume] = useState(0);
     const [changeEuUnit,setChangeEuUnit] = useState('');
     const [changeUsUnit,setChangeUsUnit] = useState('');
 
@@ -41,7 +42,7 @@ const Volume = ({eugetWeight,usgetWeight}) => {
 
     const onChangeUsVolume = (e) =>{
         let volume_sample = e.target.value;
-        
+        setUsPoundVolume(e.target.value);
         if(changeUsUnit === 'o'){
             setUsVolume((volume_sample * o_kg).toFixed(2)); 
         }
@@ -57,7 +58,7 @@ const Volume = ({eugetWeight,usgetWeight}) => {
     }
 
     eugetWeight(euVolume);
-    usgetWeight(usVolume);
+    usgetWeight(usPoundVolume);
     return (
         <div>
             <p>온스 : o, 파운드 : p, 그램 : g</p>
@@ -77,7 +78,7 @@ const Volume = ({eugetWeight,usgetWeight}) => {
                         className="vol_input"
                     />
                     
-                    <p>{euVolume}</p>
+                    <p>{euVolume}kg</p>
                 </div>
                 <div className='america_vol'>
                     <span>실 무게 입력 : </span>
@@ -93,7 +94,7 @@ const Volume = ({eugetWeight,usgetWeight}) => {
                         className="vol_input"
                     />
                     
-                    <p>{usVolume}</p>
+                    <p>{usVolume}kg</p>
                 </div>
                 
             </div>

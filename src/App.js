@@ -12,8 +12,8 @@ function App() {
     const [todaydate,setTodayDate] = useState('');
     const [geturl,setGeturl] = useState('');
     const [exchangeList,setExchangeList] = useState([]);
-    const [euPrice,setEuPrice] = useState(1390);
-    const [usPrice,setUsPrice] = useState(1390);
+    const [euPrice,setEuPrice] = useState(1400);
+    const [usPrice,setUsPrice] = useState(1410);
 
     const [euwonCost,seteuWonCost] = useState(0);
     const [uswonCost,setusWonCost] = useState(0);
@@ -44,7 +44,7 @@ function App() {
     }
 
     const onChangeUsWonCost = (e) => {
-      let won_usPrice = ((Number(e.target.value) * usPrice).toFixed(2)).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      let won_usPrice = ((Number(e.target.value) * usPrice*1.07).toFixed(2)).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       setusWonCost(won_usPrice);
     }
 
@@ -86,6 +86,14 @@ function App() {
     useEffect(() => {
       adapriceAPI();
     },[]);
+
+    const onChangeEuExPrice = (e) => {
+      setEuPrice(Number(e.target.value));
+    }
+
+    const onChangeUsExPrice = (e) => {
+      setUsPrice(Number(e.target.value));
+    }
 
 
     const eugetWeight = (w) =>{
@@ -136,19 +144,26 @@ function App() {
       setUs_delivery_price(price);
     }
     
+    
 
   return (
     <div className="App">
       <div className='exchangeInfo'> 
         {/* <span className='eu_result_exchange'>{exchangeList[0]&&exchangeList[0].price}달러</span>
         <span className='us_result_exchange'>{exchangeList[1]&&exchangeList[1].price}유로</span> */}
-        {getAPI ==='' ? <input /> : <span className='eu_result_exchange'>{getAPI[0]&&getAPI[0].rate}달러</span>}
-        {getAPI ==='' ? <input /> : <span className='us_result_exchange'>{getAPI[2]&&getAPI[2].rate}유로</span>}
+        <div className='exchange_price' id='eu_ex_pr'>
+          <p>독일 환율</p>
+          {getAPI ==='' ? <input className='exch_price' onChange={onChangeEuExPrice}/> : <span className='eu_result_exchange'>{getAPI[0]&&getAPI[0].rate}달러</span>}
+        </div>
+        <div className='exchange_price' id='us_ex_pr'>
+          <p>미국 환율</p>
+          {getAPI ==='' ? <input className='exch_price' onChange={onChangeUsExPrice}/> : <span className='us_result_exchange'>{getAPI[2]&&getAPI[2].rate}유로</span>}
+        </div>
       
       </div>
       <div className='indiv'>
           <div className='germany'>
-              <p>코인</p>
+              <h1>독일</h1>
               <span>원가 입력 : </span>
               <input 
                 type="text"
@@ -157,20 +172,20 @@ function App() {
               <p>{euwonCost}</p>
           </div>
           <div className='america'>
-              <p>주가</p>
+              <h1>미국</h1>
               <span>원가 입력 : </span>
               <input 
                 type="text"
                 onChange={onChangeUsWonCost}
               />
               <p>{uswonCost}</p>
+              <p>(7% 세금 포함)</p>
           </div>
       </div>
       <Volume eugetWeight = {eugetWeight} usgetWeight={usgetWeight}/>
       <Len_volume eugetVolume = {eugetVolume} usgetVolume={usgetVolume} us_getweigt={comp_us_w}/>
       <Eu_Delivery result_eu_volume={eu_last_volume} eu_get_deliv_price={eu_get_deliv_price} />
       <Usa_delivery result_us_volume={us_last_volume} us_get_deliv_price={us_get_deliv_price}/>
-     
     </div>
   );
 }

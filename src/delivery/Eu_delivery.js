@@ -139,9 +139,10 @@ const Eu_delivery = ({result_eu_volume,eu_get_deliv_price}) => {
     eu_get_deliv_price(result_Euvol_price);
     
     return (
-        <div>
+        <div className='last_result' id="eu_result">
             <p>{eu_after_num}kg</p>
             <h1>{result_Euvol_price}유로</h1>
+            
         </div>
     );
 };

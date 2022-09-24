@@ -276,42 +276,43 @@ const Length_Volume = ({eugetVolume,usgetVolume,us_getweigt}) => {
 
      //직구 배송 무게 결정 알고리즘
      let result_v_us = 0;
+     let deliv_num = 0;
+     var v_first = 0;
+     var comp_vw = 0;
+     var half_v = 0;
+     var plus_w = 0;
     const us_deter_deliver_w = async(w,l,h,volume,weight) =>{
-        // console.log('volume');
-        // console.log(volume);
-        // console.log('weight');
-        // console.log(weight);
         //1. 9lb < = 부피무게 <= 16lb
-        var v_first = 0;
-        var comp_vw =Math.abs(volume - weight);
-        var half_v = volume * 0.5;
-        var plus_w = weight + 10;
+        
+        comp_vw =(Math.abs(volume - weight)).toFixed(2);
+        half_v = volume * 0.5;
+        plus_w = weight + 10;
         if(9 <= volume && volume <= 16){
           v_first = volume * 0.8;
           if(v_first>=weight){
             result_v_us = v_first.toFixed(2);
-            console.log('hi4');
+            deliv_num = 1;
           }
           else if(v_first<weight){
             result_v_us = weight.toFixed(2);
-            console.log('hi5');
+            deliv_num = 1;
           }
         } 
 
         else if(0 < volume && volume < 9){
         //2. 부피 무게 <= 9lb
           if(comp_vw < 5){
-            result_v_us = volume.toFixed(2);
-            console.log('hi1');
+            result_v_us = weight.toFixed(2);
+            deliv_num = 2;
           }
           else{
             if(volume>=weight){
                 result_v_us = volume.toFixed(2);
-                console.log('hi2');
+                deliv_num = 2;
             }
             else{
                 result_v_us = weight.toFixed(2);
-                console.log('hi3');
+                deliv_num = 2;
             }
           }
         } 
@@ -320,16 +321,16 @@ const Length_Volume = ({eugetVolume,usgetVolume,us_getweigt}) => {
         //3. 부피무게 >= 16lb
           if(w >40 || l >40 || h>40){
             result_v_us = volume.toFixed(2);
-            console.log('hi7');
+            deliv_num = 3;
           }
   
           if(half_v >= plus_w){
             result_v_us = half_v.toFixed(2);
-            console.log('hi8');
+            deliv_num = 3;
           }
           else{
             result_v_us = plus_w.toFixed(2);
-            console.log('hi9');
+            deliv_num = 3;
           }
          
         }
@@ -338,7 +339,7 @@ const Length_Volume = ({eugetVolume,usgetVolume,us_getweigt}) => {
     us_deter_deliver_w(Number(usInlength_w),Number(usInlength_l),Number(usInlength_h),Number(us_result_len_v),Number(us_weight));
     
     eugetVolume(eu_result_len_v);
-    usgetVolume(us_result_len_v);
+    usgetVolume(result_v_us);
     return (
         <div>
             <p>피트 : ft, 인치 : in, 미리미터 : mm, 센티미터 : cm</p>
@@ -382,7 +383,7 @@ const Length_Volume = ({eugetVolume,usgetVolume,us_getweigt}) => {
                         <span>cm</span>
                     </div>
                     <span>{eulength_w}x{eulength_l}x{eulength_h}cm</span>
-                    <p>부피 무게 : {eu_result_len_v}kg</p>
+                    <h1>최종 무게 : {eu_result_len_v}kg</h1>
                 </div>
                 <div className='america_len_vol'>
                     <span>단위 입력</span>
@@ -425,7 +426,28 @@ const Length_Volume = ({eugetVolume,usgetVolume,us_getweigt}) => {
                     <span>{uslength_w}x{uslength_l}x{uslength_h}cm</span>
                     <p>부피 무게 : {us_result_len_v}lb</p>
                     <p>부피 무게(kg) : {us_kg_result_len_v}kg</p>
-                    <h1>{result_v_us}</h1>
+                    <h1>최종 무게 : {result_v_us}파운드</h1>
+                    <div className='deliv_result'>
+                        <h4>직구직구 참고표</h4>
+                        <div className='deliv_1' id={deliv_num === 1?'us_deliv_result_num':'us_deliv_result_num_display_none'}>
+                            <p>9lb &#60;&#61; 부피무게 &#60;&#61; 16lb </p>
+                            <p>부피무게(*0.8) : {v_first.toFixed(2)}</p>
+                            <p> 실 무게 : {us_weight}파운드</p>
+                        </div>
+                        <div className='deliv_2'id={deliv_num === 2?'us_deliv_result_num':'us_deliv_result_num_display_none'}>
+                            <p>부피무게 &#60;&#61; 9lb </p>
+                            <p>부피무게 : {us_result_len_v}</p>
+                            <p>실 무게 : {us_weight}파운드</p> 
+                            <p>부피 - 질량 : {comp_vw}</p>
+                        </div>
+                        <div className='deliv_3'id={deliv_num === 3?'us_deliv_result_num':'us_deliv_result_num_display_none'}>
+                            <p>부피무게 &#62;&#61; 16lb </p>
+                            <p>부피무게 : {us_result_len_v}</p> 
+                            <p>실무게 : {us_weight}파운드</p>
+                            <p> 부피(50%할인) :{(half_v).toFixed(2)}</p> 
+                            <p>실무게(+10):{plus_w.toFixed(2)}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

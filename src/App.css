@@ -1,3 +1,15 @@
+.exchange_price{
+  display:inline-block;
+}
+
+.exch_price{
+  width: 50px;
+}
+
+#us_ex_pr{
+  margin-left: 3rem;
+}
+
 .exchangeInfo{
   margin-bottom: 2rem;
 }
@@ -50,4 +62,11 @@
 
 .germany>input, .america>input{
   width: 50px;
+}
+
+.reset_btn{
+  width: 50%;
+  height: 100px;
+  position: absolute;
+  right: 0;
 }

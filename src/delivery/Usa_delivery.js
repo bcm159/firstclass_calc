@@ -173,9 +173,10 @@ const Usa_delivery = ({result_us_volume,us_get_deliv_price}) => {
     us_get_deliv_price(result_Usvol_price);
         
     return (
-        <div>
+        <div className='last_result' id="us_result">
             <p>{us_after_num}파운드</p>
             <h1>{result_Usvol_price}달러</h1>
+            
         </div>
     );
 };

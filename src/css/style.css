@@ -45,4 +45,32 @@
 .length_input{
     width: 40px;
 }
+.deliv_result{
+    position:absolute;
+    right: 0;
+    top: 10%;
+}
+#us_deliv_result_num{
+    border:1px solid #ccc;
+}
+#us_deliv_result_num_display_none{
+    display:none;
+}
 
+.last_result{
+    /* display:inline-block; */
+    float: left;
+    width: 100px;
+    width:auto;
+    border:1px solid blue;
+}
+
+#eu_result > p{
+}
+
+#us_result{
+}
+
+.extra_us_input, .extra_input{
+    width: 50px;
+}
