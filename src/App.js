@@ -14,6 +14,8 @@ function App() {
     const [exchangeList,setExchangeList] = useState([]);
     const [euPrice,setEuPrice] = useState(1400);
     const [usPrice,setUsPrice] = useState(1410);
+    const [euNumPrice,setNumEuPrice] = useState(1400);
+    const [usNumPrice,setNumUsPrice] = useState(1410);
 
     const [euwonCost,seteuWonCost] = useState(0);
     const [uswonCost,setusWonCost] = useState(0);
@@ -40,12 +42,14 @@ function App() {
 
     const onChangeEuWonCost = (e) =>{
       let won_euPrice = ((Number(e.target.value) * euPrice).toFixed(2)).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      setNumEuPrice((Number(e.target.value) * euPrice).toFixed(2));
       seteuWonCost(won_euPrice);
     }
 
     const onChangeUsWonCost = (e) => {
       let won_usPrice = ((Number(e.target.value) * usPrice*1.07).toFixed(2)).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       setusWonCost(won_usPrice);
+      setNumUsPrice((Number(e.target.value) * usPrice*1.07).toFixed(2));
     }
 
     const getDate = () => {
@@ -169,7 +173,7 @@ function App() {
                 type="text"
                 onChange={onChangeEuWonCost}
               />
-              <p>{euwonCost}</p>
+              <p>{euwonCost}원</p>
           </div>
           <div className='america'>
               <h1>미국</h1>
@@ -178,14 +182,16 @@ function App() {
                 type="text"
                 onChange={onChangeUsWonCost}
               />
-              <p>{uswonCost}</p>
+              <p>{uswonCost}원</p>
               <p>(7% 세금 포함)</p>
           </div>
       </div>
       <Volume eugetWeight = {eugetWeight} usgetWeight={usgetWeight}/>
       <Len_volume eugetVolume = {eugetVolume} usgetVolume={usgetVolume} us_getweigt={comp_us_w}/>
-      <Eu_Delivery result_eu_volume={eu_last_volume} eu_get_deliv_price={eu_get_deliv_price} />
-      <Usa_delivery result_us_volume={us_last_volume} us_get_deliv_price={us_get_deliv_price}/>
+      <div className='last_result_div'>
+        <Eu_Delivery result_eu_volume={eu_last_volume} eu_get_deliv_price={eu_get_deliv_price} euNumPrice={euNumPrice}/>
+        <Usa_delivery result_us_volume={us_last_volume} us_get_deliv_price={us_get_deliv_price} usNumPrice={usNumPrice} usPrice={usPrice}/>
+      </div>
     </div>
   );
 }

@@ -56,21 +56,31 @@
 #us_deliv_result_num_display_none{
     display:none;
 }
-
+.last_result_div{
+    display:flex;
+    justify-content: center;
+    padding-top: 2rem;
+    text-align: center;
+}
 .last_result{
     /* display:inline-block; */
-    float: left;
-    width: 100px;
-    width:auto;
-    border:1px solid blue;
+    
 }
 
-#eu_result > p{
+#eu_result{
+    display:block;
+    padding-right: 1rem;
+    border-right:1px solid #ccc;
 }
 
 #us_result{
+    margin-left: 1rem;
 }
 
 .extra_us_input, .extra_input{
+    width: 50px;
+}
+
+.margin_input{
     width: 50px;
 }

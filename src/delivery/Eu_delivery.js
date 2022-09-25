@@ -1,6 +1,9 @@
 import React from 'react';
+import { useState } from 'react';
 
-const Eu_delivery = ({result_eu_volume,eu_get_deliv_price}) => {
+const Eu_delivery = ({result_eu_volume,eu_get_deliv_price,euNumPrice}) => {
+    const [margin_eu_price,setMargin_eu_price] = useState(0);
+    
     let find_volume = result_eu_volume;
     let before_num = 0
     let eu_after_num = 0
@@ -140,11 +143,27 @@ const Eu_delivery = ({result_eu_volume,eu_get_deliv_price}) => {
     }
     eu_get_deliv_price(result_Euvol_price);
     
-    return (
-        <div className='last_result' id="eu_result">
-            <p>{eu_after_num}kg</p>
-            <h1>{result_Euvol_price}유로</h1>
-            
+    let last_Euprice = Number(euNumPrice) + result_Euvol_price;
+
+    const margin_eu_input = (e) =>{
+        let margin_eu = 1 + (Number(e.target.value)/100);
+        
+        setMargin_eu_price(margin_eu * last_Euprice);
+        
+    }
+     return (
+        <div className='last_result'>
+            <div id='eu_result'>
+                <p><input 
+                    className='margin_input'
+                    onChange={margin_eu_input}
+                />%</p>
+                <p>{eu_after_num}kg</p>
+                <p>배송비 : {String(result_Euvol_price).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</p>
+                <p>최종 가격 : {String(last_Euprice).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</p>
+                <h4>마진 포함 가격 : {String(margin_eu_price).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</h4>
+                <h3>순이익 : {String((margin_eu_price - last_Euprice).toFixed(2)).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</h3>
+            </div>
         </div>
     );
 };

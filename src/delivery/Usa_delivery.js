@@ -1,6 +1,10 @@
 import React from 'react';
+import { useState } from 'react';
 
-const Usa_delivery = ({result_us_volume,us_get_deliv_price}) => {
+//uswonCost : 원가 , usPrice: 환율
+const Usa_delivery = ({result_us_volume,us_get_deliv_price,usNumPrice,usPrice}) => {
+    const [margin_us_price,setMargin_us_price] = useState(0);
+    
     let find_volume = result_us_volume;
     let before_num = 0
     let us_after_num = 0
@@ -171,12 +175,31 @@ const Usa_delivery = ({result_us_volume,us_get_deliv_price}) => {
         }
     }
     us_get_deliv_price(result_Usvol_price);
+
+    let result_Usvol_price_won = Number((result_Usvol_price*usPrice).toFixed(2));
+    // usNumPrice,usPrice
+    let last_Usprice = Number(usNumPrice) + result_Usvol_price_won;
+    
+    const margin_us_input = (e) =>{
+        let margin_us = 1 + (Number(e.target.value)/100);
         
+        setMargin_us_price(margin_us * last_Usprice);
+        
+    }
     return (
-        <div className='last_result' id="us_result">
-            <p>{us_after_num}파운드</p>
-            <h1>{result_Usvol_price}달러</h1>
-            
+        <div className='last_result'>
+            <div id="us_result">
+                <p><input 
+                    className='margin_input'
+                    onChange={margin_us_input}
+                />%</p>
+                <p>{us_after_num}파운드</p>
+                <p>배송비 : {result_Usvol_price}달러, {String(result_Usvol_price_won).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</p>
+                <p>최종가격 : {String(last_Usprice).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</p>
+                {/* <p>{String(test).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</p> */}
+                <h4>마진 포함 가격 : {String(margin_us_price).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</h4>
+                <h3>순이익 : {String((margin_us_price - last_Usprice).toFixed(2)).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</h3>
+            </div>
         </div>
     );
 };

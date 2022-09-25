@@ -299,7 +299,7 @@ const Length_Volume = ({eugetVolume,usgetVolume,us_getweigt}) => {
           }
         } 
 
-        else if(0 < volume && volume < 9){
+        else if(0 <= volume && volume < 9){
         //2. 부피 무게 <= 9lb
           if(comp_vw < 5){
             result_v_us = weight.toFixed(2);
@@ -383,7 +383,7 @@ const Length_Volume = ({eugetVolume,usgetVolume,us_getweigt}) => {
                         <span>cm</span>
                     </div>
                     <span>{eulength_w}x{eulength_l}x{eulength_h}cm</span>
-                    <h1>최종 무게 : {eu_result_len_v}kg</h1>
+                    <h4>최종 무게 : {eu_result_len_v}kg</h4>
                 </div>
                 <div className='america_len_vol'>
                     <span>단위 입력</span>
@@ -426,7 +426,7 @@ const Length_Volume = ({eugetVolume,usgetVolume,us_getweigt}) => {
                     <span>{uslength_w}x{uslength_l}x{uslength_h}cm</span>
                     <p>부피 무게 : {us_result_len_v}lb</p>
                     <p>부피 무게(kg) : {us_kg_result_len_v}kg</p>
-                    <h1>최종 무게 : {result_v_us}파운드</h1>
+                    <h4>최종 무게 : {result_v_us}파운드</h4>
                     <div className='deliv_result'>
                         <h4>직구직구 참고표</h4>
                         <div className='deliv_1' id={deliv_num === 1?'us_deliv_result_num':'us_deliv_result_num_display_none'}>
