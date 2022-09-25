@@ -5,6 +5,7 @@ const Volume = ({eugetWeight,usgetWeight}) => {
     const [euVolume,setEuVolume] = useState(0);
     const [usVolume,setUsVolume] = useState(0);
     const [usPoundVolume,setUsPoundVolume] = useState(0);
+    const [sendUsPoundVolume,setSendUsPoundVolume] = useState(0);
     const [changeEuUnit,setChangeEuUnit] = useState('');
     const [changeUsUnit,setChangeUsUnit] = useState('');
 
@@ -39,21 +40,28 @@ const Volume = ({eugetWeight,usgetWeight}) => {
         }
         
     }
+    const o_p = 0.0625;
+    const g_p = 0.0022;
+    const kg_p = 2.205;
 
     const onChangeUsVolume = (e) =>{
         let volume_sample = e.target.value;
-        setUsPoundVolume(e.target.value);
+        
         if(changeUsUnit === 'o'){
-            setUsVolume((volume_sample * o_kg).toFixed(2)); 
+            setUsVolume((volume_sample * o_kg).toFixed(2));
+            setUsPoundVolume(volume_sample * o_p);
         }
         else if(changeUsUnit ==='p'){
             setUsVolume((volume_sample * p_kg).toFixed(2));
+            setUsPoundVolume(volume_sample);
         }
         else if(changeUsUnit ==='g'){
             setUsVolume((volume_sample * g_kg).toFixed(2));
+            setUsPoundVolume(volume_sample * g_p);
         }
         else{
             setUsVolume(volume_sample);
+            setUsPoundVolume(volume_sample * kg_p);
         }
     }
 
